@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --brand-forest: #1F3B3D;
+    --brand-moss: #5B8266;
+    --brand-terracotta: #D26B5B;
+    --brand-terracotta-dark: #b85444;
+    --brand-sand: #F8F6F1;
+    --brand-stone: #E6ECE8;
+    --brand-stone-dark: #cbd8cf;
+    --brand-charcoal: #172627;
+  }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    color: var(--brand-forest);
+    background-color: var(--brand-sand);
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Fraunces', Georgia, serif;
+  }
+}
+
+.font-display {
+  font-family: 'Fraunces', Georgia, serif;
+}
+
+.font-body {
+  font-family: 'Outfit', sans-serif;
+}
