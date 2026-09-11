@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, GitBranch, Globe, Copy, Check, Terminal, ExternalLink, ShieldCheck } from 'lucide-react';
+import { X, GitBranch, Globe, Copy, Check, Terminal, ExternalLink, ShieldCheck, AlertCircle } from 'lucide-react';
 
 interface GitDeploymentModalProps {
   isOpen: boolean;
@@ -20,7 +20,11 @@ export const GitDeploymentModal: React.FC<GitDeploymentModalProps> = ({
     setTimeout(() => setCopiedKey(null), 2000);
   };
 
-  const gitPushCommand = `git remote add origin git@github.com:icechest/z7co.git\ngit branch -M main\ngit push -u origin main`;
+  const [pushProtocol, setPushProtocol] = useState<'ssh' | 'https'>('ssh');
+
+  const gitPushCommand = pushProtocol === 'ssh'
+    ? `git remote add origin git@github.com:icechest/z7co.git\ngit branch -M main\ngit push -u origin main`
+    : `git remote add origin https://github.com/icechest/z7co.git\ngit branch -M main\ngit push -u origin main`;
   const cloudflareConfig = `Project Name: z7co\nBuild command: npm run build\nBuild output directory: dist\nNode version: 20\nCustom domain: z7co.com`;
   const cnameRecord = `z7co.com`;
 
@@ -71,19 +75,46 @@ export const GitDeploymentModal: React.FC<GitDeploymentModalProps> = ({
             <div className="flex items-center justify-between">
               <h4 className="font-display text-base font-bold text-[#1F3B3D] flex items-center gap-2">
                 <Terminal className="w-4 h-4 text-[#5B8266]" />
-                1. Push to GitHub (icechest/z7co)
+                1. Push to GitHub & Enable GitHub Actions Build
               </h4>
-              <button
-                onClick={() => handleCopy(gitPushCommand, 'git')}
-                className="flex items-center gap-1 text-xs font-semibold text-[#D26B5B] hover:text-[#b85444]"
-              >
-                {copiedKey === 'git' ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                <span>{copiedKey === 'git' ? 'Copied' : 'Copy'}</span>
-              </button>
+              <div className="flex items-center gap-2">
+                <div className="flex bg-[#E6ECE8] p-0.5 rounded-lg text-[11px] font-semibold">
+                  <button
+                    onClick={() => setPushProtocol('ssh')}
+                    className={`px-2 py-0.5 rounded-md transition-colors ${pushProtocol === 'ssh' ? 'bg-[#1F3B3D] text-white' : 'text-[#1F3B3D]/70'}`}
+                  >
+                    SSH
+                  </button>
+                  <button
+                    onClick={() => setPushProtocol('https')}
+                    className={`px-2 py-0.5 rounded-md transition-colors ${pushProtocol === 'https' ? 'bg-[#1F3B3D] text-white' : 'text-[#1F3B3D]/70'}`}
+                  >
+                    HTTPS
+                  </button>
+                </div>
+                <button
+                  onClick={() => handleCopy(gitPushCommand, 'git')}
+                  className="flex items-center gap-1 text-xs font-semibold text-[#D26B5B] hover:text-[#b85444] ml-2"
+                >
+                  {copiedKey === 'git' ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                  <span>{copiedKey === 'git' ? 'Copied' : 'Copy'}</span>
+                </button>
+              </div>
             </div>
             <pre className="bg-[#1F3B3D] text-[#E6ECE8] p-3 rounded-xl font-mono text-xs overflow-x-auto">
               {gitPushCommand}
             </pre>
+            <div className="bg-[#D26B5B]/10 border border-[#D26B5B]/25 p-3 rounded-xl text-xs text-[#1F3B3D] space-y-1">
+              <p className="font-semibold text-[#D26B5B] flex items-center gap-1.5">
+                <AlertCircle className="w-4 h-4 shrink-0" />
+                Fix for "Site does not come up" / Blank Screen on z7co.com:
+              </p>
+              <p className="text-[#1F3B3D]/80 leading-relaxed">
+                GitHub Pages is currently configured to deploy raw root files instead of building Vite React.
+                In your GitHub repo (<strong>icechest/z7co</strong>) &rarr; <strong>Settings</strong> &rarr; <strong>Pages</strong>:
+                under <strong>"Build and deployment" &rarr; Source</strong>, select <strong>"GitHub Actions"</strong> (our committed <code>.github/workflows/deploy.yml</code> will automatically build and publish <code>dist/</code>).
+              </p>
+            </div>
           </div>
 
           {/* Section 2: Cloudflare Pages Setup */}
