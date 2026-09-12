@@ -259,7 +259,7 @@ export default function App() {
       {/* Quick Escape Matcher Popup Modal (if opened via header button) */}
       {quickMatcherOpen && (
         <div
-          className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 overflow-hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 lg:p-6 animate-in fade-in duration-200"
           onClick={() => setQuickMatcherOpen(false)}
           role="dialog"
           aria-modal="true"
