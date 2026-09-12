@@ -120,6 +120,7 @@ export const AdventuresSection: React.FC<AdventuresSectionProps> = ({
                     alt={adv.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     loading="lazy"
+                    referrerPolicy="no-referrer"
                   />
                   <div className="absolute top-4 left-4 flex gap-2">
                     <span className={`text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm ${seasonBadgeColors[adv.season]}`}>

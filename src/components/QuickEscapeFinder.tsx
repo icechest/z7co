@@ -267,6 +267,7 @@ export const QuickEscapeFinder: React.FC<QuickEscapeFinderProps> = ({
               src={matched.adventure.featuredImage}
               alt={matched.adventure.title}
               className="w-11 h-11 sm:w-12 sm:h-12 rounded-lg object-cover shrink-0 group-hover:scale-105 transition-transform"
+              referrerPolicy="no-referrer"
             />
             <div className="min-w-0 flex-1">
               <div className="text-[10px] uppercase tracking-wider font-bold text-[#5B8266]">

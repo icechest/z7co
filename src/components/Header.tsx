@@ -199,17 +199,6 @@ export const Header: React.FC<HeaderProps> = ({
                   <Sparkles className="w-4 h-4 text-[#D26B5B]" />
                   Zero-Time Escape Matcher
                 </button>
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    openGitModal();
-                  }}
-                  id="mobile-git-setup-btn"
-                  className="w-full flex items-center justify-center gap-2 py-2.5 text-xs text-[#1F3B3D]/80 font-medium"
-                >
-                  <Globe className="w-3.5 h-3.5 text-[#D26B5B]" />
-                  z7co.com Hosting & Domain
-                </button>
               </div>
             </div>
           </div>

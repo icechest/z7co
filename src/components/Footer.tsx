@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { ArrowUpRight, Compass, Shield, Trees, MapPin, Mail, CheckCircle2, Globe } from 'lucide-react';
+import { ArrowUpRight, Compass, Shield, Trees, MapPin, Mail, CheckCircle2 } from 'lucide-react';
 
 interface FooterProps {
   onNavClick: (tab: string) => void;
-  openGitModal: () => void;
+  openGitModal?: () => void;
   openQuickMatcher: () => void;
 }
 
@@ -89,13 +89,6 @@ export const Footer: React.FC<FooterProps> = ({
                 <MapPin className="w-3.5 h-3.5 text-[#D26B5B]" />
                 <span>Operating across Sierra Crest & Eastern Pine Corridors</span>
               </div>
-              <button
-                onClick={openGitModal}
-                className="flex items-center gap-2 text-left hover:text-white transition-colors text-xs font-mono text-[#D26B5B]"
-              >
-                <Globe className="w-3.5 h-3.5" />
-                <span>Domain: z7co.com</span>
-              </button>
             </div>
           </div>
 
@@ -193,11 +186,6 @@ export const Footer: React.FC<FooterProps> = ({
                   Merino Wool Apparel
                 </button>
               </li>
-              <li>
-                <button onClick={openGitModal} className="hover:text-white transition-colors">
-                  Domain & Deployment Setup
-                </button>
-              </li>
             </ul>
           </div>
 
@@ -206,16 +194,12 @@ export const Footer: React.FC<FooterProps> = ({
         {/* Bottom copyright & technical specs */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#E6ECE8]/60">
           <div>
-            &copy; {new Date().getFullYear()} Z7CO Holdings LLC. All rights reserved. Registered for z7co.com.
+            &copy; {new Date().getFullYear()} Z7CO Holdings LLC. All rights reserved.
           </div>
           <div className="flex items-center gap-4">
             <span>Clean Architecture Base</span>
             <span>•</span>
             <span>Zero Planning Philosophy</span>
-            <span>•</span>
-            <button onClick={openGitModal} className="underline hover:text-white">
-              z7co.com
-            </button>
           </div>
         </div>
 

@@ -359,9 +359,10 @@ export const ADVENTURES: Adventure[] = [
     duration: '4 Hours',
     difficulty: 'Challenging',
     price: 120,
-    featuredImage: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=1200',
+    featuredImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Sunset_View_from_Skyline_Drive_in_Shenandoah_National_Park.jpg/1280px-Sunset_View_from_Skyline_Drive_in_Shenandoah_National_Park.jpg',
     gallery: [
-      'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=1200'
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Sunset_View_from_Skyline_Drive_in_Shenandoah_National_Park.jpg/1280px-Sunset_View_from_Skyline_Drive_in_Shenandoah_National_Park.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Skyline_Drive_in_the_Fall_%2821852619608%29.jpg/1280px-Skyline_Drive_in_the_Fall_%2821852619608%29.jpg'
     ],
     description: 'Glide over crisp fallen leaves on 14 miles of purpose-built backcountry singletrack. Featuring banked berms, natural granite rock drops, and panoramic overlook perches, this ride showcases the dynamic beauty of autumn at thrilling speeds.',
     itinerary: [
