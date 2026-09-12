@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowUpRight, Compass, Shield, Trees, MapPin, Mail, CheckCircle2, GitBranch } from 'lucide-react';
+import { ArrowUpRight, Compass, Shield, Trees, MapPin, Mail, CheckCircle2, Globe } from 'lucide-react';
 
 interface FooterProps {
   onNavClick: (tab: string) => void;
@@ -93,8 +93,8 @@ export const Footer: React.FC<FooterProps> = ({
                 onClick={openGitModal}
                 className="flex items-center gap-2 text-left hover:text-white transition-colors text-xs font-mono text-[#D26B5B]"
               >
-                <GitBranch className="w-3.5 h-3.5" />
-                <span>Repo: icechest/z7co • Domain: z7co.com</span>
+                <Globe className="w-3.5 h-3.5" />
+                <span>Domain: z7co.com</span>
               </button>
             </div>
           </div>
@@ -195,7 +195,7 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <button onClick={openGitModal} className="hover:text-white transition-colors">
-                  Cloudflare & GitHub Setup
+                  Domain & Deployment Setup
                 </button>
               </li>
             </ul>
@@ -214,7 +214,7 @@ export const Footer: React.FC<FooterProps> = ({
             <span>Zero Planning Philosophy</span>
             <span>•</span>
             <button onClick={openGitModal} className="underline hover:text-white">
-              icechest/z7co
+              z7co.com
             </button>
           </div>
         </div>

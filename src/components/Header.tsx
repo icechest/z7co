@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShoppingBag, Compass, Menu, X, Sparkles, MapPin, GitBranch, ArrowUpRight } from 'lucide-react';
+import { ShoppingBag, Compass, Menu, X, Sparkles, MapPin, Globe, ArrowUpRight } from 'lucide-react';
 
 interface HeaderProps {
   activeTab: string;
@@ -57,11 +57,10 @@ export const Header: React.FC<HeaderProps> = ({
               onClick={openGitModal}
               id="git-status-button"
               className="flex items-center gap-1.5 text-xs text-[#E6ECE8]/80 hover:text-white transition-colors underline decoration-[#D26B5B] underline-offset-4"
-              title="View GitHub repository & custom domain status"
+              title="Custom domain & deployment status"
             >
-              <GitBranch className="w-3.5 h-3.5 text-[#D26B5B]" />
+              <Globe className="w-3.5 h-3.5 text-[#D26B5B]" />
               <span className="font-mono">z7co.com</span>
-              <span className="hidden sm:inline text-white/50">(icechest/z7co)</span>
             </button>
             <span className="text-white/20">|</span>
             <button
@@ -208,8 +207,8 @@ export const Header: React.FC<HeaderProps> = ({
                   id="mobile-git-setup-btn"
                   className="w-full flex items-center justify-center gap-2 py-2.5 text-xs text-[#1F3B3D]/80 font-medium"
                 >
-                  <GitBranch className="w-3.5 h-3.5 text-[#D26B5B]" />
-                  z7co.com Repo & Setup Guide
+                  <Globe className="w-3.5 h-3.5 text-[#D26B5B]" />
+                  z7co.com Hosting & Domain
                 </button>
               </div>
             </div>

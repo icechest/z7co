@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, GitBranch, Globe, Copy, Check, Terminal, ExternalLink, ShieldCheck, AlertCircle } from 'lucide-react';
+import { X, Globe, Copy, Check, Terminal, ShieldCheck, Server, AlertCircle } from 'lucide-react';
 
 interface GitDeploymentModalProps {
   isOpen: boolean;
@@ -23,9 +23,10 @@ export const GitDeploymentModal: React.FC<GitDeploymentModalProps> = ({
   const [pushProtocol, setPushProtocol] = useState<'ssh' | 'https'>('ssh');
 
   const gitPushCommand = pushProtocol === 'ssh'
-    ? `git remote add origin git@github.com:icechest/z7co.git\ngit branch -M main\ngit push -u origin main`
-    : `git remote add origin https://github.com/icechest/z7co.git\ngit branch -M main\ngit push -u origin main`;
-  const cloudflareConfig = `Project Name: z7co\nBuild command: npm run build\nBuild output directory: dist\nNode version: 20\nCustom domain: z7co.com`;
+    ? `git push -u origin main`
+    : `git push -u origin main`;
+
+  const hostingConfig = `Production Domain: z7co.com\nBuild Command: npm run build\nBuild Output Directory: dist\nNode.js Version: 22 LTS\nRouting: Single Page Application (SPA)`;
   const cnameRecord = `z7co.com`;
 
   return (
@@ -35,9 +36,9 @@ export const GitDeploymentModal: React.FC<GitDeploymentModalProps> = ({
         {/* Header */}
         <div className="px-6 py-4 border-b border-[#1F3B3D]/10 flex items-center justify-between bg-[#F8F6F1]">
           <div className="flex items-center gap-2">
-            <GitBranch className="w-5 h-5 text-[#D26B5B]" />
+            <Globe className="w-5 h-5 text-[#D26B5B]" />
             <h3 className="font-display text-xl font-bold">
-              z7co.com Deployment & Git Repository
+              z7co.com Custom Domain & Hosting
             </h3>
           </div>
           <button
@@ -51,81 +52,57 @@ export const GitDeploymentModal: React.FC<GitDeploymentModalProps> = ({
         {/* Content */}
         <div className="p-6 sm:p-8 overflow-y-auto space-y-6 text-xs sm:text-sm">
           
-          {/* Target Repo Overview */}
+          {/* Production Domain Status */}
           <div className="bg-[#1F3B3D] text-[#F8F6F1] p-5 rounded-2xl">
             <div className="flex items-center justify-between mb-3">
               <div className="text-xs uppercase font-bold text-[#5B8266] tracking-wider">
-                Target Repository
+                Production Target
               </div>
               <span className="text-[10px] font-mono bg-white/10 px-2.5 py-0.5 rounded-full text-[#E6ECE8]">
-                Branch: main
+                SSL / HTTPS Active
               </span>
             </div>
-            <div className="font-mono text-sm text-[#F8F6F1] font-semibold break-all">
-              git@github.com:icechest/z7co.git
+            <div className="font-display text-2xl text-[#F8F6F1] font-bold tracking-tight">
+              https://z7co.com
             </div>
             <div className="mt-2 text-xs text-[#E6ECE8]/70 flex items-center gap-1.5">
-              <Globe className="w-3.5 h-3.5 text-[#D26B5B]" />
-              <span>Target Production Domain: <strong>https://z7co.com</strong></span>
+              <ShieldCheck className="w-3.5 h-3.5 text-[#5B8266]" />
+              <span>Production Apex Domain • CNAME record linked to root</span>
             </div>
           </div>
 
-          {/* Section 1: GitHub Pages Instructions */}
+          {/* Section 1: Push latest updates */}
           <div className="bg-white p-5 rounded-2xl border border-[#1F3B3D]/10 space-y-3">
             <div className="flex items-center justify-between">
               <h4 className="font-display text-base font-bold text-[#1F3B3D] flex items-center gap-2">
                 <Terminal className="w-4 h-4 text-[#5B8266]" />
-                1. Push to GitHub & Enable GitHub Actions Build
+                1. Push Latest Changes to Production
               </h4>
-              <div className="flex items-center gap-2">
-                <div className="flex bg-[#E6ECE8] p-0.5 rounded-lg text-[11px] font-semibold">
-                  <button
-                    onClick={() => setPushProtocol('ssh')}
-                    className={`px-2 py-0.5 rounded-md transition-colors ${pushProtocol === 'ssh' ? 'bg-[#1F3B3D] text-white' : 'text-[#1F3B3D]/70'}`}
-                  >
-                    SSH
-                  </button>
-                  <button
-                    onClick={() => setPushProtocol('https')}
-                    className={`px-2 py-0.5 rounded-md transition-colors ${pushProtocol === 'https' ? 'bg-[#1F3B3D] text-white' : 'text-[#1F3B3D]/70'}`}
-                  >
-                    HTTPS
-                  </button>
-                </div>
-                <button
-                  onClick={() => handleCopy(gitPushCommand, 'git')}
-                  className="flex items-center gap-1 text-xs font-semibold text-[#D26B5B] hover:text-[#b85444] ml-2"
-                >
-                  {copiedKey === 'git' ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                  <span>{copiedKey === 'git' ? 'Copied' : 'Copy'}</span>
-                </button>
-              </div>
+              <button
+                onClick={() => handleCopy(gitPushCommand, 'git')}
+                className="flex items-center gap-1 text-xs font-semibold text-[#D26B5B] hover:text-[#b85444]"
+              >
+                {copiedKey === 'git' ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                <span>{copiedKey === 'git' ? 'Copied' : 'Copy'}</span>
+              </button>
             </div>
             <pre className="bg-[#1F3B3D] text-[#E6ECE8] p-3 rounded-xl font-mono text-xs overflow-x-auto">
               {gitPushCommand}
             </pre>
-            <div className="bg-[#D26B5B]/10 border border-[#D26B5B]/25 p-3 rounded-xl text-xs text-[#1F3B3D] space-y-1">
-              <p className="font-semibold text-[#D26B5B] flex items-center gap-1.5">
-                <AlertCircle className="w-4 h-4 shrink-0" />
-                Fix for "Site does not come up" / Blank Screen on z7co.com:
-              </p>
-              <p className="text-[#1F3B3D]/80 leading-relaxed">
-                GitHub Pages is currently configured to deploy raw root files instead of building Vite React.
-                In your GitHub repo (<strong>icechest/z7co</strong>) &rarr; <strong>Settings</strong> &rarr; <strong>Pages</strong>:
-                under <strong>"Build and deployment" &rarr; Source</strong>, select <strong>"GitHub Actions"</strong> (our committed <code>.github/workflows/deploy.yml</code> will automatically build and publish <code>dist/</code>).
-              </p>
-            </div>
+            <p className="text-xs text-[#1F3B3D]/70 font-light">
+              Pushes directly trigger the automated CI builder to build Vite React and update <strong>z7co.com</strong>.
+            </p>
           </div>
 
-          {/* Section 2: Cloudflare Pages Setup */}
+          {/* Section 2: Hosting Configuration */}
           <div className="bg-white p-5 rounded-2xl border border-[#1F3B3D]/10 space-y-3">
             <div className="flex items-center justify-between">
               <h4 className="font-display text-base font-bold text-[#1F3B3D] flex items-center gap-2">
-                <Globe className="w-4 h-4 text-[#D26B5B]" />
-                2. Cloudflare Pages & Custom Domain Configuration
+                <Server className="w-4 h-4 text-[#D26B5B]" />
+                2. Production Hosting Specifications
               </h4>
               <button
-                onClick={() => handleCopy(cloudflareConfig, 'cf')}
+                onClick={() => handleCopy(hostingConfig, 'cf')}
                 className="flex items-center gap-1 text-xs font-semibold text-[#D26B5B] hover:text-[#b85444]"
               >
                 {copiedKey === 'cf' ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
@@ -133,24 +110,21 @@ export const GitDeploymentModal: React.FC<GitDeploymentModalProps> = ({
               </button>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[#1F3B3D]/80 bg-[#E6ECE8] p-3 rounded-xl font-mono">
+              <div>Primary Domain: <strong>z7co.com</strong></div>
               <div>Build Command: <strong>npm run build</strong></div>
               <div>Output Directory: <strong>dist</strong></div>
-              <div>Node.js Version: <strong>20+</strong></div>
-              <div>Custom Domain: <strong>z7co.com</strong></div>
+              <div>Node Runtime: <strong>Node 22 LTS</strong></div>
             </div>
-            <p className="text-xs text-[#1F3B3D]/70 font-light">
-              In Cloudflare Dashboard &rarr; Pages &rarr; Connect to Git &rarr; Select <code>icechest/z7co</code> &rarr; Add custom domain <code>z7co.com</code> and enable Automatic SSL.
-            </p>
           </div>
 
-          {/* Section 3: CNAME File for GitHub Pages */}
+          {/* Section 3: CNAME Verification */}
           <div className="bg-white p-5 rounded-2xl border border-[#1F3B3D]/10 space-y-2">
             <h4 className="font-display text-base font-bold text-[#1F3B3D] flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-[#5B8266]" />
-              3. CNAME Record Verification
+              3. Apex CNAME Record
             </h4>
             <p className="text-xs text-[#1F3B3D]/70 font-light">
-              A <code>public/CNAME</code> file with the value <code>z7co.com</code> ensures seamless single-domain SSL resolution on GitHub Pages when DNS points to your repository.
+              The committed <code>CNAME</code> file points to <code>z7co.com</code>, ensuring clean SSL resolution and immediate DNS binding.
             </p>
           </div>
 
