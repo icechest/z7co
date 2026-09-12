@@ -21,6 +21,18 @@ export const QuickEscapeFinder: React.FC<QuickEscapeFinderProps> = ({
   const [drive, setDrive] = useState<string>('90min');
   const [party, setParty] = useState<string>('couple');
 
+  // Allow closing with Escape key
+  React.useEffect(() => {
+    if (!onClose) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
   // Dynamically compute matched package
   const getMatchedPackage = (): QuickEscapePackage => {
     if (vibe === 'active') {
@@ -35,22 +47,35 @@ export const QuickEscapeFinder: React.FC<QuickEscapeFinderProps> = ({
   const matched = getMatchedPackage();
 
   return (
-    <div className="bg-[#1F3B3D] text-[#F8F6F1] rounded-3xl p-6 sm:p-10 border border-[#2A4446] shadow-2xl relative overflow-hidden">
+    <div className="bg-[#1F3B3D] text-[#F8F6F1] rounded-3xl p-6 sm:p-10 border border-[#2A4446] shadow-2xl relative overflow-hidden max-h-[92vh] flex flex-col">
+      {/* Top Banner with Close & Return Button when modal */}
+      {onClose && (
+        <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/10 shrink-0">
+          <div className="flex items-center gap-2 text-xs text-[#E6ECE8]/70 font-mono">
+            <span>ESC to close</span>
+            <span>•</span>
+            <span>Zero-Time Escape Matcher</span>
+          </div>
+          <button
+            onClick={onClose}
+            id="close-quick-escape-top-btn"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-[#F8F6F1] hover:text-white transition-all text-xs font-semibold"
+            title="Return to main page"
+          >
+            <X className="w-4 h-4" />
+            <span>Close / Return to Site</span>
+          </button>
+        </div>
+      )}
+
       {/* Subtle organic background badge */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-[#5B8266]/10 rounded-full blur-3xl pointer-events-none" />
 
-      {onClose && (
-        <button
-          onClick={onClose}
-          id="close-quick-escape-modal"
-          className="absolute top-6 right-6 p-2 text-[#E6ECE8]/70 hover:text-white rounded-full bg-white/10 hover:bg-white/20 transition-all"
-        >
-          <X className="w-5 h-5" />
-        </button>
-      )}
+      {/* Scrollable interior for long views or small viewports */}
+      <div className="overflow-y-auto pr-1 space-y-8 flex-1">
 
       {/* Header */}
-      <div className="max-w-2xl mb-8">
+      <div className="max-w-2xl">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#D26B5B]/20 border border-[#D26B5B]/40 text-[#D26B5B] text-xs font-bold uppercase tracking-widest mb-3">
           <Sparkles className="w-3.5 h-3.5" />
           <span>Zero-Friction Escape Engine</span>
@@ -260,6 +285,15 @@ export const QuickEscapeFinder: React.FC<QuickEscapeFinderProps> = ({
           </div>
 
           <div className="flex items-center gap-3 w-full sm:w-auto">
+            {onClose && (
+              <button
+                onClick={onClose}
+                id="cancel-quick-escape-btn"
+                className="flex-1 sm:flex-none text-xs font-bold uppercase tracking-wider text-[#1F3B3D]/70 hover:text-[#1F3B3D] px-4 py-3 border border-[#1F3B3D]/20 rounded-xl hover:bg-[#E6ECE8] transition-all"
+              >
+                Cancel / Return
+              </button>
+            )}
             <button
               onClick={() => onSelectProperty(matched.property)}
               className="flex-1 sm:flex-none text-xs font-bold uppercase tracking-wider text-[#1F3B3D] hover:text-[#D26B5B] px-4 py-3"
@@ -276,6 +310,8 @@ export const QuickEscapeFinder: React.FC<QuickEscapeFinderProps> = ({
             </button>
           </div>
         </div>
+
+      </div>
 
       </div>
 

@@ -258,12 +258,30 @@ export default function App() {
 
       {/* Quick Escape Matcher Popup Modal (if opened via header button) */}
       {quickMatcherOpen && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
-          <div className="w-full max-w-5xl">
+        <div
+          className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200"
+          onClick={() => setQuickMatcherOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Zero-Time Escape Matcher"
+        >
+          <div
+            className="w-full max-w-5xl my-auto relative"
+            onClick={(e) => e.stopPropagation()}
+          >
             <QuickEscapeFinder
-              onSelectProperty={(prop) => setSelectedProperty(prop)}
-              onSelectAdventure={(adv) => handleStartAdventureBooking(adv)}
-              onBookPackage={(pkg) => handleStartPackageBooking(pkg)}
+              onSelectProperty={(prop) => {
+                setQuickMatcherOpen(false);
+                setSelectedProperty(prop);
+              }}
+              onSelectAdventure={(adv) => {
+                setQuickMatcherOpen(false);
+                handleStartAdventureBooking(adv);
+              }}
+              onBookPackage={(pkg) => {
+                setQuickMatcherOpen(false);
+                handleStartPackageBooking(pkg);
+              }}
               onClose={() => setQuickMatcherOpen(false)}
             />
           </div>
