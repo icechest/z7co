@@ -12,6 +12,18 @@ export const GitDeploymentModal: React.FC<GitDeploymentModalProps> = ({
 }) => {
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
+  // Keyboard escape listener
+  React.useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const handleCopy = (text: string, key: string) => {
@@ -20,18 +32,20 @@ export const GitDeploymentModal: React.FC<GitDeploymentModalProps> = ({
     setTimeout(() => setCopiedKey(null), 2000);
   };
 
-  const [pushProtocol, setPushProtocol] = useState<'ssh' | 'https'>('ssh');
-
-  const gitPushCommand = pushProtocol === 'ssh'
-    ? `git push -u origin main`
-    : `git push -u origin main`;
-
+  const gitPushCommand = `git push -u origin main`;
   const hostingConfig = `Production Domain: z7co.com\nBuild Command: npm run build\nBuild Output Directory: dist\nNode.js Version: 22 LTS\nRouting: Single Page Application (SPA)`;
-  const cnameRecord = `z7co.com`;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
-      <div className="bg-[#F8F6F1] text-[#1F3B3D] w-full max-w-3xl rounded-3xl overflow-hidden shadow-2xl border border-[#1F3B3D]/10 max-h-[90vh] flex flex-col">
+    <div
+      className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+    >
+      <div
+        className="bg-[#F8F6F1] text-[#1F3B3D] w-full max-w-3xl rounded-3xl overflow-hidden shadow-2xl border border-[#1F3B3D]/10 max-h-[90vh] flex flex-col my-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
         
         {/* Header */}
         <div className="px-6 py-4 border-b border-[#1F3B3D]/10 flex items-center justify-between bg-[#F8F6F1]">
