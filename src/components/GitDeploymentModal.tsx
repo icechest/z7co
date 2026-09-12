@@ -33,7 +33,7 @@ export const GitDeploymentModal: React.FC<GitDeploymentModalProps> = ({
   };
 
   const gitPushCommand = `git push -u origin main`;
-  const hostingConfig = `Production Domain: z7co.com\nBuild Command: npm run build\nBuild Output Directory: dist\nNode.js Version: 22 LTS\nRouting: Single Page Application (SPA)`;
+  const hostingConfig = `Production Domain: z7co.com\nBuild Command: npm run build\nBuild Output Directory: dist\nNode.js Version: 24 LTS\nRouting: Single Page Application (SPA)`;
 
   return (
     <div
