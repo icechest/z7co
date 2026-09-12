@@ -317,15 +317,6 @@ export const QuickEscapeFinder: React.FC<QuickEscapeFinderProps> = ({
           </div>
 
           <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
-            {onClose && (
-              <button
-                onClick={onClose}
-                id="cancel-quick-escape-btn"
-                className="px-3.5 py-2 text-xs font-semibold text-[#1F3B3D]/70 hover:text-[#1F3B3D] border border-[#1F3B3D]/20 rounded-lg hover:bg-black/5 transition-all"
-              >
-                Cancel / Close
-              </button>
-            )}
             <button
               onClick={() => onSelectProperty(matched.property)}
               className="px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-[#1F3B3D] hover:text-[#D26B5B] transition-colors"
