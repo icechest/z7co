@@ -84,11 +84,14 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               onClick={() => handleNavClick('home')}
               id="brand-logo-btn"
-              className="text-left group flex items-baseline gap-2"
+              className="text-left group flex items-center gap-2.5"
             >
-              <span className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-[#1F3B3D] group-hover:text-[#D26B5B] transition-colors">
-                Z7CO.
-              </span>
+              <img
+                src="/image_5f9b3f61.png"
+                alt="Z7CO"
+                className="h-9 sm:h-10 w-auto object-contain transition-transform group-hover:scale-105"
+                referrerPolicy="no-referrer"
+              />
               <span className="hidden sm:inline-block text-[10px] tracking-[0.2em] uppercase font-bold text-[#5B8266] border-l border-[#1F3B3D]/20 pl-2">
                 Outpost & Stays
               </span>

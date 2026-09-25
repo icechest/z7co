@@ -72,11 +72,14 @@ export const Footer: React.FC<FooterProps> = ({
           
           {/* Brand Info Column */}
           <div className="col-span-2 space-y-4">
-            <div className="flex items-baseline gap-2">
-              <span className="font-display text-3xl font-bold tracking-tight text-[#F8F6F1]">
-                Z7CO.
-              </span>
-              <span className="text-[10px] tracking-[0.2em] uppercase font-bold text-[#5B8266]">
+            <div className="flex items-center gap-2.5">
+              <img
+                src="/image_5f9b3f61_light.png"
+                alt="Z7CO"
+                className="h-9 sm:h-10 w-auto object-contain"
+                referrerPolicy="no-referrer"
+              />
+              <span className="text-[10px] tracking-[0.2em] uppercase font-bold text-[#5B8266] border-l border-[#2A4446] pl-2">
                 Outpost & Stays
               </span>
             </div>
